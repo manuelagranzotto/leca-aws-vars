@@ -1,0 +1,19 @@
+on:
+  # vai ser chamado quando selecionar o aws no input.yml
+  workflow_call:
+    inputs:
+      msg: 
+        type: string
+    secrets:
+      PAT: 
+        # se não colocar, ele assume type: string por defeito
+        required: true
+jobs:
+  aws-create-vm:
+    runs-on: ubuntu-latest
+    environment: Test
+    steps:
+    - uses: actions/labeler@v4
+      with:
+        aws-pat: ${{ secrets.PAT }}
+        msg: ${{ inputs.msg }}
